@@ -4,7 +4,7 @@
 
 class rms
 {
-	public $base_url = 'http://localhost/rms/';
+	public $base_url = 'https://posrms.herokuapp.com/';
 	public $connect;
 	public $query;
 	public $statement;
