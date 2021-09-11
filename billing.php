@@ -6,12 +6,12 @@ $object = new rms();
 
 if(!$object->is_login())
 {
-    header("location:".$object->base_url."");
+    header("location:".$base_url."");
 }
 
 if(!$object->is_cashier_user() && !$object->is_master_user())
 {
-    header("location:".$object->base_url."dashboard.php");
+    header("location:".$base_url."dashboard.php");
 }
 
 include('header.php');
@@ -190,7 +190,7 @@ $(document).ready(function(){
                 $('#submit_button').val('Print');
                 $('#billingModal').modal('hide');
                 dataTable.ajax.reload();
-                window.location.href="<?php echo $object->base_url; ?>print.php?action=print&order_id="+data
+                window.location.href="<?php echo $base_url; ?>print.php?action=print&order_id="+data
             }
         });
     });

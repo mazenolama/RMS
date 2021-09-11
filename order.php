@@ -6,12 +6,12 @@
 
 				if(!$object->is_login())
 				{
-				    header("location:".$object->base_url."");
+				    header("location:".$base_url."");
 				}
 
                 if(!$object->is_waiter_user() && !$object->is_master_user())
                 {
-                    header("location:".$object->base_url."dashboard.php");
+                    header("location:".$base_url."dashboard.php");
                 }
 
                 include('header.php');

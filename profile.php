@@ -6,7 +6,7 @@ $object = new rms();
 
 if(!$object->is_login())
 {
-    header("location:".$object->base_url."");
+    header("location:".$base_url."");
 }
 
 $object->query = "

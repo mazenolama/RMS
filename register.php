@@ -9,11 +9,11 @@ if($object->Is_set_up_done())
 {
     if($object->is_login())
     {
-        header("location:".$object->base_url."dashboard.php");
+        header("location:".$base_url."dashboard.php");
     }
     else
     {
-        header("location:".$object->base_url."index.php");
+        header("location:".$base_url."index.php");
     }
 }
 
@@ -181,7 +181,7 @@ $(document).ready(function(){
                     }
                     else
                     {
-                        window.location.href="<?php echo $object->base_url; ?>";
+                        window.location.href="<?php echo $base_url; ?>";
                     }
                 }
             })
