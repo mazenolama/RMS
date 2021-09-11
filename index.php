@@ -1,8 +1,6 @@
 
 <?php
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
- header('Content-Type: application/json');
+
 include('rms.php');
 
 $object = new rms();
