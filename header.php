@@ -81,6 +81,11 @@
                     <span>Tax</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="discount.php">
+                    <i class="fas fa-percent"></i>
+                    <span>Discount</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="product.php">
                     <i class="fas fa-utensils"></i>
                     <span>Product</span></a>

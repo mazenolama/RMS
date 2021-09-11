@@ -131,7 +131,9 @@ if(isset($_POST["action"]))
 		$count = 1;
 		$gross_total = 0;
 		$total_tax_amt = 0;
+		$total_discount_amt = 0;
 		$net_total = 0;
+
 		foreach($result as $row)
 		{
 			$html .= '
@@ -155,6 +157,7 @@ if(isset($_POST["action"]))
 			</tr>
 		';
 
+	/*************************  start Get Taxes *************************/
 		$object->query = "
 		SELECT * FROM tax_table 
 		WHERE tax_status = 'Enable' 
@@ -196,20 +199,70 @@ if(isset($_POST["action"]))
 
 			$object->execute($tax_data);
 		}
+	/*************************  End Get Taxes *************************/
 
-		$net_total = $gross_total + $total_tax_amt;
+	/*************************  start Get discount ********************/
+		$object->query = "
+		SELECT * FROM discount_table 
+		WHERE discount_status = 'Enable' 
+		ORDER BY discount_id ASC
+		";
+
+		$discount_result = $object->get_result();
+
+		$object->query = "
+		DELETE FROM order_discount_table 
+		WHERE order_id = '".$_POST['order_id']."'
+		";
+
+		$object->execute();
+
+		foreach($discount_result as $discount)
+		{
+			$discount_amt = ($gross_total * $discount["discount_percentage"])/100;
+			$html .= '
+			<tr>
+				<td colspan="4" class="text-right"><b>'.$discount["discount_name"].' ('.$discount["discount_percentage"].'%)</b></td>
+				<td colspan="2">'.$object->cur . number_format((float)$discount_amt, 2, '.', '').'</td>
+			</tr>
+			';
+			$total_discount_amt += $discount_amt;
+
+			$discount_data = array(
+				':order_id'				=>	$_POST['order_id'],
+				':order_discount_name'		=>	$discount["discount_name"],
+				':order_discount_percentage'	=>	$discount["discount_percentage"],
+				':order_discount_amount'		=>	$discount_amt
+			);
+
+			$object->query = "
+			INSERT INTO order_discount_table 
+			(order_id, order_discount_name, order_discount_percentage, order_discount_amount) 
+			VALUES (:order_id, :order_discount_name, :order_discount_percentage, :order_discount_amount)
+			";
+
+			$object->execute($discount_data);
+		}
+
+	/*************************  End Get discount **********************/
+
+
+		$net_total = $gross_total + $total_tax_amt  ;
+		$net_total = $net_total - $total_discount_amt ;
 
 		$order_data = array(
-			':order_gross_amount'	=>	$gross_total,
-			':order_tax_amount'		=>	$total_tax_amt,
-			':order_net_amount'		=>	$net_total,
-			':order_cashier'		=>	$object->Get_user_name($_SESSION['user_id'])
+			':order_gross_amount'	 =>	 $gross_total,
+			':order_tax_amount'		 =>	 $total_tax_amt,
+			':order_discount_amount' =>	 $total_discount_amt,
+			':order_net_amount'		 =>	 $net_total,
+			':order_cashier'		 =>	 $object->Get_user_name($_SESSION['user_id'])
 		);
 
 		$object->query = "
 		UPDATE order_table 
 		SET order_gross_amount = :order_gross_amount, 
 		order_tax_amount = :order_tax_amount, 
+		order_discount_amount = :order_discount_amount, 
 		order_net_amount = :order_net_amount, 
 		order_cashier = :order_cashier 
 		WHERE order_id = '".$_POST["order_id"]."'
@@ -273,6 +326,13 @@ if(isset($_POST["action"]))
 		WHERE order_id = '".$_POST["order_id"]."'
 		";
 		$object->execute();
+
+		$object->query = "
+		DELETE FROM order_discount_table 
+		WHERE order_id = '".$_POST["order_id"]."'
+		";
+		$object->execute();
+
 		echo '<div class="alert alert-success">Order Remove Successfully...</div>';
 	}
 }

@@ -95,6 +95,7 @@ if(isset($_POST["action"]))
 				':order_table'			=>	$_POST['hidden_table_name'],
 				':order_gross_amount'	=>	0,
 				':order_tax_amount'		=>	0,
+				':order_discount_amount'		=>	0,
 				':order_net_amount'		=>	0,
 				':order_date'			=>	date('Y-m-d'),
 				':order_time'			=>	date('H:i:s'),
@@ -105,8 +106,8 @@ if(isset($_POST["action"]))
 
 			$object->query = "
 			INSERT INTO order_table 
-			(order_number, order_table, order_gross_amount, order_tax_amount, order_net_amount, order_date, order_time, order_waiter, order_cashier, order_status) 
-			VALUES (:order_number, :order_table, :order_gross_amount, :order_tax_amount, :order_net_amount, :order_date, :order_time, :order_waiter, :order_cashier, :order_status)
+			(order_number, order_table, order_gross_amount, order_tax_amount, order_discount_amount, order_net_amount, order_date, order_time, order_waiter, order_cashier, order_status) 
+			VALUES (:order_number, :order_table, :order_gross_amount, :order_tax_amount, :order_discount_amount, :order_net_amount, :order_date, :order_time, :order_waiter, :order_cashier, :order_status)
 			";
 			$object->execute($order_data);
 
