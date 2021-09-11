@@ -12,7 +12,7 @@ class rms
 
 	function rms()
 	{
-		$this->connect = new PDO("mysql:host=localhost;dbname=rms", "root", "");
+		$this->connect = new PDO("mysql:host=db4free.net;dbname=rms_online", "rms_database", "mezo0000");
 		if($this->Set_timezone() != '')
 		{
 			date_default_timezone_set($this->Set_timezone());
