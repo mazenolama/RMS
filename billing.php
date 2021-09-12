@@ -6,64 +6,64 @@ $object = new rms();
 
 if(!$object->is_login())
 {
-    header("location:".$base_url."");
+    header("location:".$object->base_url."");
 }
 
 if(!$object->is_cashier_user() && !$object->is_master_user())
 {
-    header("location:".$base_url."dashboard.php");
+    header("location:".$object->base_url."dashboard.php");
 }
 
 include('header.php');
 
 ?>
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Billing Management</h1>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Billing Management</h1>
 
-                    <!-- DataTales Example -->
-                    <span id="message"></span>
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                        	<div class="row">
-                            	<div class="col">
-                            		<h6 class="m-0 font-weight-bold text-primary">Bill List</h6>
-                            	</div>
-                            	<div class="col" align="right">
-                            	</div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="billing_table" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Table Number</th>
-                                            <th>Order Number</th>
-                                            <th>Order Date</th>
-                                            <th>Order Time</th>
-                                            <th>Waiter</th>
-                                            <?php
-                                            if($object->is_master_user())
-                                            {
-                                                echo '<th>Cashier</th>';
-                                            }
-                                            ?>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+    <!-- DataTales Example -->
+    <span id="message"></span>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col">
+                    <h6 class="m-0 font-weight-bold text-primary">Bill List</h6>
+                </div>
+                <div class="col" align="right">
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="billing_table" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Table Number</th>
+                            <th>Order Number</th>
+                            <th>Order Date</th>
+                            <th>Order Time</th>
+                            <th>Waiter</th>
+                            <?php
+                            if($object->is_master_user())
+                            {
+                                echo '<th>Cashier</th>';
+                            }
+                            ?>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-                <?php
-                include('footer.php');
-                ?>
+<?php
+include('footer.php');
+?>
 
 <div id="billingModal" class="modal fade">
   	<div class="modal-dialog modal-xl">
@@ -99,13 +99,14 @@ $(document).ready(function(){
 			type:"POST",
 			data:{action:'fetch'}
 		},
+        //<?php ?> added after :
 		"columnDefs":[
 			{
                 <?php
                 if($object->is_master_user())
                 {
                 ?>
-                "targets":[7],
+                "targets": [7],
                 <?php
                 }
                 else
@@ -190,7 +191,7 @@ $(document).ready(function(){
                 $('#submit_button').val('Print');
                 $('#billingModal').modal('hide');
                 dataTable.ajax.reload();
-                window.location.href="<?php echo $base_url; ?>print.php?action=print&order_id="+data
+                window.location.href="<?php echo $object->base_url; ?>print.php?action=print&order_id="+data
             }
         });
     });

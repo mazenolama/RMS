@@ -1,25 +1,25 @@
 <?php
 
 //rms.php
-if(	$_SERVER['SERVER_NAME'] == "localhost")
-{
-	$base_url = 'http://localhost/rms/';
-}
-else
-{
-	$base_url = 'https://posrms.herokuapp.com/';
-}
+
 class rms
 {
+	public $base_url = 'http://localhost/rms/';
 	public $connect;
 	public $query;
 	public $statement;
 	public $cur;
 	
+	private $host = 'localhost';
+	private $db_name = 'rms';
+	private $username = 'root';
+	private $db_pass = '';
+	
 	function rms()
 	{
+		 $this->connect = null;
 		
-		$this->connect = new PDO("mysql:host=db4free.net;dbname=rms_online", "rms_database", "mezo0000");
+		$this->connect = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name, $this->username, $this->db_pass);
 		if($this->Set_timezone() != '')
 		{
 			date_default_timezone_set($this->Set_timezone());

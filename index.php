@@ -7,12 +7,12 @@ $object = new rms();
 
 if(!$object->Is_set_up_done())
 {
-    header("location:".$base_url."register.php");
+    header("location:".$object->base_url."register.php");
 }
 
 if($object->is_login())
 {
-    header("location:".$base_url."dashboard.php");
+    header("location:".$object->base_url."dashboard.php");
 }
 
 
@@ -140,7 +140,7 @@ $(document).ready(function(){
                     }
                     else
                     {
-                        window.location.href = "<?php echo $base_url; ?>dashboard.php";
+                        window.location.href = "<?php echo $object->base_url; ?>dashboard.php";
                     }
                 }
             })

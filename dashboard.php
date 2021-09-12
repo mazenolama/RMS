@@ -6,10 +6,11 @@
 
 				if(!$object->is_login())
 				{
-				    header("location:".$base_url."");
+				    header("location:".$object->base_url."");
 				}
-                
+
                 include('header.php');
+
                 ?>
 
                     <!-- Page Heading -->

@@ -10,12 +10,12 @@ $object = new rms();
 
 if(!$object->is_login())
 {
-    header("location:".$base_url."");
+    header("location:".$object->base_url."");
 }
 
 if(!$object->is_cashier_user() && !$object->is_master_user())
 {
-    header("location:".$base_url."dashboard.php");
+    header("location:".$object->base_url."dashboard.php");
 }
 
 $file_name = '';
@@ -152,7 +152,7 @@ if(isset($_GET["order_id"]))
 				</td>
 			</tr>
 			<tr>
-				<td align="center">Thank you, Please come again</td>
+				<td align="center">Thank you</td>
 			</tr>
 			';
 	}
