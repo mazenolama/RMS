@@ -119,7 +119,7 @@ if(isset($_GET["order_id"]))
 
 		$total_tax_row = $object->row_count();
 
-		$rowspan = 2 + $total_tax_row;
+		$rowspan = 3 + $total_tax_row;
 
 		$tax_result = $object->statement_result();
 
@@ -139,6 +139,28 @@ if(isset($_GET["order_id"]))
 						<tr>
 							<td align="right"><b>'.$tax["order_tax_name"].' ('.$tax["order_tax_percentage"].'%)</b></td>
 							<td>'.$object->cur . $tax["order_tax_amount"].'</td>
+						</tr>
+			';
+		}
+		$object->query =null;
+		
+		$object->query = "
+		SELECT * FROM order_discount_table 
+		WHERE order_id = '".$_GET["order_id"]."'
+		";
+
+		$discount_result = $object->execute();
+
+		$total_discount_row = $object->row_count();
+
+		$discount_result = $object->statement_result();
+		
+		foreach($discount_result as $discount)
+		{
+			$output .= '
+						<tr>
+							<td align="right"><b>'.$discount["order_discount_name"].' ('.$discount["order_discount_percentage"].'%)</b></td>
+							<td>'.$object->cur . $discount["order_discount_amount"].'</td>
 						</tr>
 			';
 		}
