@@ -6654,9 +6654,7 @@ button.bg-dark:focus {
 }
 
 @media (min-width: 768px) {
-  .d-md-none {
-    display: none !important;
-  }
+
   .d-md-inline {
     display: inline !important;
   }
@@ -11241,4 +11239,10 @@ footer.sticky-footer .copyright {
 
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
+}
+.btnAction{
+  display: flex !important;
+    column-gap: 5px !important;
+    align-content: stretch;
+    justify-content: center;
 }

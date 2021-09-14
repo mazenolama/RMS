@@ -76,7 +76,7 @@ if(isset($_POST["action"]))
 			}
 			$sub_array[] = $status;
 			$sub_array[] = '
-			<div align="center">
+			<div align="center" class="btnAction">
 			<button type="button" name="edit_button" class="btn btn-warning btn-circle btn-sm edit_button" data-id="'.$row["table_id"].'"><i class="fas fa-edit"></i></button>
 			&nbsp;
 			<button type="button" name="delete_button" class="btn btn-danger btn-circle btn-sm delete_button" data-id="'.$row["table_id"].'"><i class="fas fa-times"></i></button>

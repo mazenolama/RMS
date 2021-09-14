@@ -89,7 +89,7 @@ if(isset($_POST["action"]))
 			}
 			$sub_array[] = $status;
 			$sub_array[] = '
-			<div align="center">
+			<div align="center" class="btnAction">
 			<button type="button" name="view_button" class="btn btn-primary btn-circle btn-sm view_button" data-id="'.$row["order_id"].'"><i class="fas fa-eye"></i></button>
 			&nbsp;
 			'.$print.'
